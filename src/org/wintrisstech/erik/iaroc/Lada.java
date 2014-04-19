@@ -53,11 +53,10 @@ public class Lada extends IRobotCreateAdapter {
 	 * @throws ConnectionLostException
 	 */
 	public void loop() throws ConnectionLostException {
-		turn(90);
-		SystemClock.sleep(5000);
-		stop();
-		SystemClock.sleep(5000);
 
+		
+		
+		hugWall();
 	}
 
 	public void stop() throws ConnectionLostException {
@@ -75,4 +74,32 @@ public class Lada extends IRobotCreateAdapter {
 		SystemClock.sleep(100 * degreesToTurn);
 		stop();
 	}
+
+	private void goForward(int speed) throws ConnectionLostException {
+		driveDirect(speed, speed);
+
+	}
+
+	private void goForward(int speed, int distance)
+			throws ConnectionLostException {
+		int currentdistance = 0;
+		while (currentdistance < distance) {
+			driveDirect(speed, speed);
+			readSensors(SENSORS_GROUP_ID6);
+			currentdistance += getDistance();
+		}
+
+	}
+
+	private void hugWall() throws ConnectionLostException {
+		if (isBumpRight()) {
+
+			driveDirect(101, 350);
+			SystemClock.sleep(3000);
+		}
+		else {
+			driveDirect(500, 150);
+		}
+	}
+
 }
