@@ -20,8 +20,7 @@ import android.widget.SlidingDrawer;
  * 
  * @author Erik
  */
-public class Lada extends IRobotCreateAdapter
-{
+public class Lada extends IRobotCreateAdapter {
 
 	Brain b;
 
@@ -40,21 +39,21 @@ public class Lada extends IRobotCreateAdapter
 	 *            the Dashboard instance that is connected to the Lada
 	 * @throws ConnectionLostException
 	 */
-	public Lada(IOIO ioio, IRobotCreateInterface create, Dashboard dashboard) throws ConnectionLostException
-	{
+	public Lada(IOIO ioio, IRobotCreateInterface create, Dashboard dashboard)
+			throws ConnectionLostException {
 		super(create);
 		sonar = new UltraSonicSensors(ioio);
 		this.dashboard = dashboard;
 		// song(0, new int[]{58, 10});
 	}
 
-	public void initialize() throws ConnectionLostException
-	{
+	public void initialize() throws ConnectionLostException {
 		b = new Brain(this);
 		dashboard.log("===========Start===========");
 		readSensors(SENSORS_GROUP_ID6);
 		dashboard.log("iAndroid2014 version 140404A");
-		dashboard.log("Battery Charge = " + getBatteryCharge() + ", 3,000 = Full charge");
+		dashboard.log("Battery Charge = " + getBatteryCharge()
+				+ ", 3,000 = Full charge");
 	}
 
 	/**
@@ -62,43 +61,37 @@ public class Lada extends IRobotCreateAdapter
 	 * 
 	 * @throws ConnectionLostException
 	 */
-	public void loop() throws ConnectionLostException
-	{
-		b.go(100, 100);
-		b.sleep(5000);
+	public void loop() throws ConnectionLostException {
+		b.spinLeft(45);
 		b.stop();
-		b.sleep(5000);
+		b.sleep(2000);
 	}
 
-	public void stop() throws ConnectionLostException
-	{
+	public void stop() throws ConnectionLostException {
 		driveDirect(0, 0);
 	}
 
-	private void go(int leftWheelSpeed, int rightWheelSpeed) throws ConnectionLostException
-	{
+	private void go(int leftWheelSpeed, int rightWheelSpeed)
+			throws ConnectionLostException {
 		driveDirect(rightWheelSpeed, leftWheelSpeed);
 
 	}
 
-	private void turn(int degreesToTurn) throws ConnectionLostException
-	{
+	private void turn(int degreesToTurn) throws ConnectionLostException {
 		go(0, 100);
 		SystemClock.sleep(100 * degreesToTurn);
 		stop();
 	}
 
-	private void goForward(int speed) throws ConnectionLostException
-	{
+	private void goForward(int speed) throws ConnectionLostException {
 		driveDirect(speed, speed);
 
 	}
 
-	private void goForward(int speed, int distance) throws ConnectionLostException
-	{
+	private void goForward(int speed, int distance)
+			throws ConnectionLostException {
 		int currentdistance = 0;
-		while (currentdistance < distance)
-		{
+		while (currentdistance < distance) {
 			driveDirect(speed, speed);
 			readSensors(SENSORS_GROUP_ID6);
 			currentdistance += getDistance();
@@ -106,15 +99,12 @@ public class Lada extends IRobotCreateAdapter
 
 	}
 
-	private void hugWall() throws ConnectionLostException
-	{
-		if (isBumpRight())
-		{
+	private void hugWall() throws ConnectionLostException {
+		if (isBumpRight()) {
 
 			driveDirect(101, 350);
 			SystemClock.sleep(3000);
-		} else
-		{
+		} else {
 			driveDirect(500, 150);
 		}
 	}
