@@ -15,10 +15,8 @@ import android.os.SystemClock;
 import android.widget.SlidingDrawer;
 
 /**
- * A Lada is an implementation of the IRobotCreateInterface, inspired by Vic's
- * awesome API. It is entirely event driven. Version 140404A...mods by Vic
- * 
- * @author Erik
+ * Version 140524
+ * worked on compass
  */
 public class Lada extends IRobotCreateAdapter {
 
@@ -54,6 +52,7 @@ public class Lada extends IRobotCreateAdapter {
 		dashboard.log("iAndroid2014 version 140404A");
 		dashboard.log("Battery Charge = " + getBatteryCharge()
 				+ ", 3,000 = Full charge");
+		driveDirect(100, 100);
 	}
 
 	/**
@@ -62,9 +61,13 @@ public class Lada extends IRobotCreateAdapter {
 	 * @throws ConnectionLostException
 	 */
 	public void loop() throws ConnectionLostException {
-		b.spinLeft(45);
-		b.stop();
-		b.sleep(2000);
+		dashboard.log((int) dashboard.getAzimuth() + "");
+		if (dashboard.getAzimuth() > 90) {
+			driveDirect(120, 80);// turn left
+		}
+		if (dashboard.getAzimuth() < 90) {
+			driveDirect(80, 120);// turn right
+		}
 	}
 
 	public void stop() throws ConnectionLostException {
