@@ -21,6 +21,7 @@ import android.widget.SlidingDrawer;
 public class Lada extends IRobotCreateAdapter {
 
 	Brain b;
+	int azimuthStart;
 
 	private final Dashboard dashboard;
 	public UltraSonicSensors sonar;
@@ -52,6 +53,7 @@ public class Lada extends IRobotCreateAdapter {
 		dashboard.log("iAndroid2014 version 140404A");
 		dashboard.log("Battery Charge = " + getBatteryCharge()
 				+ ", 3,000 = Full charge");
+		azimuthStart = (int) dashboard.getAzimuth();
 		driveDirect(100, 100);
 	}
 
@@ -61,12 +63,19 @@ public class Lada extends IRobotCreateAdapter {
 	 * @throws ConnectionLostException
 	 */
 	public void loop() throws ConnectionLostException {
+		goStraight(azimuthStart);
+	}
+
+	private void goStraight(int azimuth) throws ConnectionLostException {
 		dashboard.log((int) dashboard.getAzimuth() + "");
-		if (dashboard.getAzimuth() > 90) {
-			driveDirect(120, 80);// turn left
+		if (dashboard.getAzimuth() < azimuth) {
+			driveDirect(150, 75);// turn left
 		}
-		if (dashboard.getAzimuth() < 90) {
-			driveDirect(80, 120);// turn right
+		if (dashboard.getAzimuth() == azimuth) {
+			driveDirect(500 , 500);
+		}
+		if (dashboard.getAzimuth() < azimuth) {
+			driveDirect(70, 150);// turn left
 		}
 	}
 
