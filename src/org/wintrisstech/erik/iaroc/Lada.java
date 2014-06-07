@@ -68,13 +68,13 @@ public class Lada extends IRobotCreateAdapter {
 	private void goStraight(int azimuth) throws ConnectionLostException {
 		dashboard.log((int) dashboard.getAzimuth() + "");
 		if (dashboard.getAzimuth() < (azimuth)) {
-			driveDirect(150, 300);// turn left
+			driveDirect(150, 200);// turn right
 		}
 		if (dashboard.getAzimuth() == (azimuth)) {
 			driveDirect(500, 500);
 		}
 		if (dashboard.getAzimuth() > (azimuth)) {
-			driveDirect(150, 75);// turn left
+			driveDirect(200, 150);// turn left
 		}
 	}
 
