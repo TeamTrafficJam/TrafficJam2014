@@ -239,7 +239,12 @@ public class Dashboard extends IOIOActivity implements
 
 			public void loop() throws ConnectionLostException,
 					InterruptedException {
-				kalina.loop();
+				try {
+					kalina.loop();
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 
 			public void disconnected() {

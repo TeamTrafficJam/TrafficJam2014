@@ -46,7 +46,7 @@ public class Lada extends IRobotCreateAdapter {
 	}
 
 	public void initialize() throws ConnectionLostException {
-		b = new Brain( this, dashboard);
+		b = new Brain(this, dashboard);
 		dashboard.log("===========Start===========");
 		readSensors(SENSORS_GROUP_ID6);
 		dashboard.log("iAndroid2014 version 140404A");
@@ -61,15 +61,21 @@ public class Lada extends IRobotCreateAdapter {
 	 * 
 	 * @throws ConnectionLostException
 	 */
-	public void loop() throws ConnectionLostException {
-		dragRace();
+	public void loop() throws Exception {
+		// dragRace();
+		marsMaze();
 	}
 
-	private void dragRace() throws ConnectionLostException {
+	private void dragRace() throws Exception {
 		b.goStraight(azimuthStart);
-		
+
 	}
 
-	
+	private void marsMaze() throws Exception {
+		sonar.read();
+		if (sonar.getRightDistance() < 45 && sonar.getLeftDistance() < 45) {
+			b.goForward(100);
+		}
+	}
 
 }
