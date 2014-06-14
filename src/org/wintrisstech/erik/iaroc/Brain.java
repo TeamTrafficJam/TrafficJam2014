@@ -10,8 +10,10 @@ import ioio.lib.api.exception.ConnectionLostException;
 import android.os.SystemClock;
 
 public class Brain extends IRobotCreateAdapter {
-	public Brain(IRobotCreateInterface delegate) {
+	public Dashboard dashboard = null;
+	public Brain(IRobotCreateInterface delegate,Dashboard dashboard) {
 		super(delegate);
+		this.dashboard = dashboard;
 	}
 
 	public static void main(String[] args) {
@@ -75,6 +77,20 @@ public class Brain extends IRobotCreateAdapter {
 		
 		
 
+	}
+	void goStraight(int azimuth) throws ConnectionLostException {
+		//dashboard.log((int) dashboard.getAzimuth() + "");
+		if (dashboard.getAzimuth() < (azimuth)) {
+			driveDirect(350, 500);// turn right
+			//dashboard.log("turn right");
+		}
+		if (dashboard.getAzimuth() == (azimuth)) {
+			driveDirect(500, 500);
+		}
+		if (dashboard.getAzimuth() > (azimuth)) {
+			driveDirect(500, 350);// turn left
+			//dashboard.log("turn left");
+		}
 	}
 	
 }
