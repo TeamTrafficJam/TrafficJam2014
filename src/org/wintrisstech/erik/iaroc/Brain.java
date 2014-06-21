@@ -11,7 +11,8 @@ import android.os.SystemClock;
 
 public class Brain extends IRobotCreateAdapter {
 	public Dashboard dashboard = null;
-	public Brain(IRobotCreateInterface delegate,Dashboard dashboard) {
+
+	public Brain(IRobotCreateInterface delegate, Dashboard dashboard) {
 		super(delegate);
 		this.dashboard = dashboard;
 	}
@@ -74,24 +75,34 @@ public class Brain extends IRobotCreateAdapter {
 	public void spinLeft(int degrees) throws ConnectionLostException {
 		driveDirect(300, -300);
 		SystemClock.sleep(degrees * 8);
-		
-		
 
 	}
+
+	public void findtheEye() {
+		// this is to find the ir
+
+	}
+
 	void goStraight(int azimuth) throws ConnectionLostException {
-		//dashboard.log((int) dashboard.getAzimuth() + "");
+		// dashboard.log((int) dashboard.getAzimuth() + "");
 		if (dashboard.getAzimuth() < (azimuth)) {
-			driveDirect(350, 500);// turn right
-			//dashboard.log("turn right");
+			driveDirect(400, 500);// turn right
+			// dashboard.log("turn right");
 		}
 		if (dashboard.getAzimuth() == (azimuth)) {
 			driveDirect(500, 500);
 		}
 		if (dashboard.getAzimuth() > (azimuth)) {
-			driveDirect(500, 350);// turn left
-			//dashboard.log("turn left");
+			driveDirect(500, 400);// turn left
+			// dashboard.log("turn left");
 		}
 	}
-	
-}
 
+	public void spinRight(int speed, int degrees) {
+		// TODO Make method and use angle sensor
+	}
+
+	public void spinLeft(int speed, int degrees) {
+		// TODO Make method and use angle sensor
+	}
+}

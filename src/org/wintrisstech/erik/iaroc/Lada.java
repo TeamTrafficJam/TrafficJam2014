@@ -62,8 +62,12 @@ public class Lada extends IRobotCreateAdapter {
 	 * @throws ConnectionLostException
 	 */
 	public void loop() throws Exception {
-		// dragRace();
-		marsMaze();
+          
+		
+	}
+	private void beconRun() throws Exception {
+		
+		
 	}
 
 	private void dragRace() throws Exception {
